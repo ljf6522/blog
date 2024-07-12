@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.my_blog.mapper.LToolMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.my_blog.model.LTool">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="tool_name" jdbcType="VARCHAR" property="toolName" />
+        <result column="tool_logo" jdbcType="VARCHAR" property="toolLogo" />
+        <result column="tool_introduce" jdbcType="VARCHAR" property="toolIntroduce" />
+        <result column="tool_link" jdbcType="VARCHAR" property="toolLink" />
+        <result column="type" jdbcType="INTEGER" property="type" />
+        <result column="if_delete" jdbcType="INTEGER" property="ifDelete" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    </resultMap>
+
+    <insert id="addTool" parameterType="com.example.my_blog.model.LTool">
+        insert into l_tool (tool_name,tool_logo,tool_introduce,tool_link,type,if_delete,create_time)
+            values
+            (#{toolName},#{toolLogo},#{toolIntroduce},#{toolLink},#{type},#{ifDelete},#{createTime});
+    </insert>
+    <update id="updateToolById" parameterType="com.example.my_blog.model.LTool">
+        update l_tool
+        set tool_name=#{toolName},
+            tool_logo=#{toolLogo},
+            tool_link=#{toolLink},
+            tool_introduce=#{toolIntroduce},
+            if_delete=#{ifDelete},
+            type=#{type}
+        where
+            id=#{id}
+    </update>
+    <delete id="deleteToolById"  parameterType="java.lang.Integer">
+        delete from l_tool
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByType" parameterType="java.lang.Integer">
+        delete from l_tool
+        where type = #{type,jdbcType=INTEGER}
+    </delete>
+    <select id="getListBySearch" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from l_tool
+        <if test="search!=null">
+            where
+            tool_name like concat('%',#{search},'%')
+            or tool_introduce like concat('%',#{search},'%')
+        </if>
+    </select>
+    <select id="getToolByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from l_tool
+        where
+        tool_name=#{name};
+    </select>
+    <select id="getListByTypeId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select * from l_tool
+        where
+            type=#{type};
+    </select>
+
+
+    <select id="getNoDeleteListByType" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select * from l_tool
+        where
+            if_delete=0
+            and
+            type=#{type};
+    </select>
+    <select id="selectBySearch" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from l_tool
+        <if test="search!=null">
+            where
+            if_delete=0
+            and
+            (tool_name like concat('%',#{search},'%')
+            or tool_introduce like concat('%',#{search},'%'))
+        </if>
+    </select>
+
+</mapper>

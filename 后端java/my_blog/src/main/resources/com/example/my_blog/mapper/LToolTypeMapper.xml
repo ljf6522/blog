@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.my_blog.mapper.LToolTypeMapper">
+    <resultMap id="BaseResultMap" type="com.example.my_blog.model.LToolType">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    </resultMap>
+    <insert id="addToolType" parameterType="com.example.my_blog.model.LToolType">
+        insert into l_tool_type (type_name,create_time)
+        values
+        (#{typeName},#{createTime});
+    </insert>
+    <update id="updateTp" parameterType="com.example.my_blog.model.LToolType">
+        update l_tool_type
+        set type_name=#{typeName}
+        where
+            id=#{id}
+    </update>
+    <delete id="deleteTpById" parameterType="java.lang.Integer">
+        delete from l_tool_type
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from l_tool_type;
+    </select>
+</mapper>

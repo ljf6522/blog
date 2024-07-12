@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.my_blog.mapper.LWebSettingMapper">
+    <resultMap id="BaseResultMap" type="com.example.my_blog.model.LWebSetting">
+
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="web_notice" jdbcType="VARCHAR" property="webNotice" />
+        <result column="web_name" jdbcType="VARCHAR" property="webName"/>
+        <result column="web_homeImage" jdbcType="VARCHAR" property="webHomeImage"/>
+        <result column="web_signature" jdbcType="VARCHAR" property="webSignature"/>
+        <result column="web_xcbgi" jdbcType="VARCHAR" property="webXcbgi"/>
+        <result column="web_sbbgi" jdbcType="VARCHAR" property="webSbbgi"/>
+        <result column="web_lybgi" jdbcType="VARCHAR" property="webLybgi"/>
+        <result column="web_friendbgi" jdbcType="VARCHAR" property="webFriendbgi"/>
+        <result column="web_toolbgi" jdbcType="VARCHAR" property="webToolbgi"/>
+        <result column="theme_color" jdbcType="VARCHAR" property="themeColor"/>
+    </resultMap>
+
+    <select id="getWebSetting" resultMap="BaseResultMap">
+        select * from l_web_setting;
+    </select>
+
+    <update id="updateWebLybgi">
+        update l_web_setting
+        <set>
+            <if test="webLybgi != null">
+                web_lybgi = #{webLybgi,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = 6522
+    </update>
+    <update id="updateWebHomeImage">
+        update l_web_setting
+        <set>
+            <if test="webHomeImage != null">
+                web_homeImage= #{webHomeImage,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = 6522
+    </update>
+    <update id="updateWebSbbgi">
+        update l_web_setting
+        <set>
+            <if test="webSbbgi != null">
+                web_sbbgi = #{webSbbgi,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = 6522
+    </update>
+    <update id="updateWebXcbgi">
+        update l_web_setting
+        <set>
+            <if test="webXcbgi != null">
+                web_xcbgi = #{webXcbgi,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = 6522
+    </update>
+    <update id="updateFriendBgi">
+        update l_web_setting
+        <set>
+            <if test="webFriendbgi != null">
+                web_friendbgi = #{webFriendbgi,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = 6522
+    </update>
+    <update id="updateToolBgi">
+        update l_web_setting
+        <set>
+            <if test="webToolbgi != null">
+                web_toolbgi = #{webToolbgi,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = 6522
+    </update>
+    <update id="updateNoting" parameterType="com.example.my_blog.dto.WebSettingDto">
+        update l_web_setting
+            set web_name=#{webName,jdbcType=VARCHAR},
+
+             web_signature=#{webSignature,jdbcType=VARCHAR},
+
+             theme_color=#{themeColor,jdbcType=VARCHAR}
+        where id = 6522
+    </update>
+    <update id="updateWebNotice" parameterType="com.example.my_blog.dto.LSettingNoticeDto">
+        update l_web_setting
+        <set>
+            <if test="webNotice != null">
+                web_notice = #{webNotice,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>
